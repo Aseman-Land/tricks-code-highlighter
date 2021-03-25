@@ -69,6 +69,16 @@ void Highlighter::setFrameOptions(const Options &frameOptions)
                                 frame.margins + editor.margins);
 }
 
+qint32 Highlighter::minWidth() const
+{
+    return mMinWidth;
+}
+
+void Highlighter::setMinWidth(const qint32 &minWidth)
+{
+    mMinWidth = minWidth;
+}
+
 void Highlighter::paintEvent(QPaintEvent *e)
 {
     QPainter painter(this);
@@ -272,7 +282,7 @@ void Highlighter::setCode(const QString &code)
     int width = mFrameOptions.background.margins * 2 + mFrameOptions.editor.margins * 2 + mEditor->getViewportMargins().left() +
                 mEditor->getViewportMargins().right() + 20 + maxWidth;
 
-    resize(qMin(width, 1024), 200);
+    resize(qMax(mMinWidth, qMin(width, 1024)), 200);
 
     auto doc = mEditor->document();
     auto height = mEditor->getBlockHeight(doc->lastBlock());

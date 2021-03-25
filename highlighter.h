@@ -85,6 +85,9 @@ public:
 
     static QMap<QString, QString> frames();
 
+    qint32 minWidth() const;
+    void setMinWidth(const qint32 &minWidth);
+
 protected:
     void paintEvent(QPaintEvent *e);
     void paintBackground(QPainter &painter);
@@ -96,6 +99,7 @@ private:
     EditorFontOptions mFontOptions;
     QString mTheme;
     QString mFrame;
+    qint32 mMinWidth = 0;
 
     QString mCode;
     QString mFile;
