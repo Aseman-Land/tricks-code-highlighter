@@ -88,6 +88,9 @@ public:
     qint32 minWidth() const;
     void setMinWidth(const qint32 &minWidth);
 
+    qint32 maxWidth() const;
+    void setMaxWidth(const qint32 &maxWidth);
+
 protected:
     void paintEvent(QPaintEvent *e);
     void paintBackground(QPainter &painter);
@@ -100,6 +103,7 @@ private:
     QString mTheme;
     QString mFrame;
     qint32 mMinWidth = 0;
+    qint32 mMaxWidth = 1024;
 
     QString mCode;
     QString mFile;

@@ -48,8 +48,11 @@ int main(int argc, char *argv[])
         QCommandLineOption widthOption(QStringList() << "w" << "width", QStringLiteral("Width of output image"), "pixels");
         parser.addOption(widthOption);
 
-        QCommandLineOption minWidthOption(QStringList() << "minimum-width", QStringLiteral("Minimum width of output image"), "pixels");
+        QCommandLineOption minWidthOption(QStringList() << "minimum-width", QStringLiteral("Minimum width of frame"), "pixels");
         parser.addOption(minWidthOption);
+
+        QCommandLineOption maxWidthOption(QStringList() << "maximum-width", QStringLiteral("Maximum width of frame"), "pixels");
+        parser.addOption(maxWidthOption);
 
         QCommandLineOption fontFanmilyOption(QStringList() << "font-family", QStringLiteral("Editor font family name."), "name", "Ubuntu Mono");
         parser.addOption(fontFanmilyOption);
@@ -107,6 +110,7 @@ int main(int argc, char *argv[])
         auto fontSize = parser.value(fontSizeOption).toInt();
         int width = parser.isSet(widthOption)? parser.value(widthOption).toInt() : 1024;
         int min_width = parser.isSet(minWidthOption)? parser.value(minWidthOption).toInt() : 0;
+        int max_width = parser.isSet(maxWidthOption)? parser.value(maxWidthOption).toInt() : 1024;
         auto frame = parser.value(frameOption);
         auto theme = parser.value(themeOption);
         auto lineNumbers = parser.isSet(lineNumbersOption);
@@ -121,6 +125,7 @@ int main(int argc, char *argv[])
         w.setFrame(frame);
         w.setTheme(theme);
         w.setMinWidth(min_width);
+        w.setMaxWidth(max_width);
         w.setFontOptions({
             .family = fontFamiliy,
             .size = fontSize,
