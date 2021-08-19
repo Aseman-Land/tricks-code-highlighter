@@ -6,6 +6,8 @@
 #include <QFontMetrics>
 #include <QImageWriter>
 #include <QDir>
+#include <QScrollBar>
+#include <QTimer>
 
 #include <QDebug>
 
@@ -300,6 +302,19 @@ void Highlighter::setCode(const QString &code)
               mEditor->getViewportMargins().top() + mEditor->getViewportMargins().bottom();
 
     resize(Highlighter::width(), height);
+
+    // Render to fix wrap bugz
+    QImage img(10, 10, QImage::Format_ARGB32);
+    img.fill(QColor(0,0,0,0));
+
+    render(&img, QPoint(), QRegion(rect()), QWidget::DrawChildren);
+
+    height = mEditor->getBlockHeight(doc->lastBlock());
+    height += mFrameOptions.background.margins * 2 + mFrameOptions.editor.margins + mFrameOptions.background.titlebarHeight +
+              mEditor->getViewportMargins().top() + mEditor->getViewportMargins().bottom();
+
+    resize(Highlighter::width(), height);
+    // End
 }
 
 void Highlighter::setPlainText(const QString &text)
