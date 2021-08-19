@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-//        qputenv("QT_QPA_PLATFORM", "offscreen");
+        qputenv("QT_QPA_PLATFORM", "offscreen");
 
         QApplication app(argc, argv);
         app.setApplicationName("tricks-code-highlighter");
