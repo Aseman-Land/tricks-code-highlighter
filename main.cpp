@@ -42,6 +42,9 @@ int main(int argc, char *argv[])
         QCommandLineOption inputOption(QStringList() << "i" << "input", QStringLiteral("Input source code file. (Required)"), "file");
         parser.addOption(inputOption);
 
+        QCommandLineOption languageOption(QStringList() << "l" << "language", QStringLiteral("Programming langauge."), "language");
+        parser.addOption(languageOption);
+
         QCommandLineOption destOption(QStringList() << "o" << "output", QStringLiteral("Output image file path. (Required)"), "file");
         parser.addOption(destOption);
 
@@ -107,6 +110,7 @@ int main(int argc, char *argv[])
         auto input = parser.value(inputOption);
         auto dest = parser.value(destOption);
         auto fontFamiliy = parser.value(fontFanmilyOption);
+        auto language = parser.value(languageOption);
         auto fontSize = parser.value(fontSizeOption).toInt();
         int width = parser.isSet(widthOption)? parser.value(widthOption).toInt() : 1024;
         int min_width = parser.isSet(minWidthOption)? parser.value(minWidthOption).toInt() : 0;
@@ -124,6 +128,7 @@ int main(int argc, char *argv[])
         Highlighter w(lineNumbers);
         w.setFrame(frame);
         w.setTheme(theme);
+        w.setLanguage(language);
         w.setMinWidth(min_width);
         w.setMaxWidth(max_width);
         w.setFontOptions({

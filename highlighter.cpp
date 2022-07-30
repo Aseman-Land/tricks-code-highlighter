@@ -71,6 +71,35 @@ void Highlighter::setFrameOptions(const Options &frameOptions)
                                 frame.margins + editor.margins);
 }
 
+const QString &Highlighter::language() const
+{
+    return mLanguage;
+}
+
+void Highlighter::setLanguage(const QString &newLanguage)
+{
+    mLanguage = newLanguage;
+
+    for (const auto &d: mRepo.definitions())
+        if (d.name().toLower() == newLanguage.toLower())
+        {
+            qDebug() << d.name() << d.extensions();
+            mHighlighter->setDefinition(d);
+            mHighlighter->rehighlight();
+            return;
+        }
+
+    auto d = mRepo.definitionForName(newLanguage);
+    if (!d.isValid())
+        d = mRepo.definitionForMimeType(newLanguage);
+    if (!d.isValid())
+        d = mRepo.definitionForFileName(newLanguage);
+
+
+    mHighlighter->setDefinition(d);
+    mHighlighter->rehighlight();
+}
+
 qint32 Highlighter::maxWidth() const
 {
     return mMaxWidth;
@@ -229,7 +258,9 @@ void Highlighter::setFile(const QString &file)
         f.close();
     }
 
-    mHighlighter->setDefinition(mRepo.definitionForFileName(mFile));
+    if (mLanguage.isEmpty())
+        mHighlighter->setDefinition(mRepo.definitionForFileName(mFile));
+
     setCode(code);
 }
 

@@ -91,6 +91,9 @@ public:
     qint32 maxWidth() const;
     void setMaxWidth(const qint32 &maxWidth);
 
+    const QString &language() const;
+    void setLanguage(const QString &newLanguage);
+
 protected:
     void paintEvent(QPaintEvent *e);
     void paintBackground(QPainter &painter);
@@ -104,6 +107,7 @@ private:
     QString mFrame;
     qint32 mMinWidth = 0;
     qint32 mMaxWidth = 1024;
+    QString mLanguage;
 
     QString mCode;
     QString mFile;
