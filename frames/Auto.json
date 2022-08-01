@@ -1,0 +1,30 @@
+{
+    "background": {
+        "round": 5,
+        "margins": 0,
+        "background": "auto",
+        "titlebarHeight": 50
+    },
+    "buttons": {
+        "buttons": [
+            {
+                "width": 12,
+                "color": "#ff5f56"
+            },
+            {
+                "width": 12,
+                "color": "#ffbd2e"
+            },
+            {
+                "width": 12,
+                "color": "#27c93f"
+            }
+        ],
+        "spacing": 10,
+        "margins": 20,
+        "direction": "ltr"
+    },
+    "editor": {
+        "margins": 20
+    }
+}

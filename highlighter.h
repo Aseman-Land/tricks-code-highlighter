@@ -22,7 +22,7 @@ public:
     struct BackgroundOption {
         int round = 5;
         int margins = 10;
-        QColor background = "#000000";
+        QString background = "#000000";
         int titlebarHeight = 30;
     };
 

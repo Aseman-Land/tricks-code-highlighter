@@ -40,7 +40,7 @@ Highlighter::Highlighter(QWidget *parent)
 
     mEditor->setReadOnly(false);
 
-    setFrame("Dark");
+    setFrame("Auto");
     setTheme("Breeze Dark");
     setFontOptions({
         .family = "Ubuntu Mono",
@@ -139,7 +139,12 @@ void Highlighter::paintBackground(QPainter &painter)
     QPainterPath path;
     path.addRoundedRect(rect, mFrameOptions.background.round, mFrameOptions.background.round);
 
-    painter.fillPath(path, mFrameOptions.background.background);
+    const auto bg = mFrameOptions.background.background;
+    const auto t = mHighlighter->theme();
+    if (bg == QStringLiteral("auto"))
+        painter.fillPath(path, QColor::fromRgb(t.editorColor(KSyntaxHighlighting::Theme::BackgroundColor)));
+    else
+        painter.fillPath(path, QColor(bg));
 }
 
 void Highlighter::paintFrameButtons(QPainter &painter)
